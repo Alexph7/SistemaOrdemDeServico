@@ -2,6 +2,8 @@ package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaUsuario extends javax.swing.JInternalFrame {
@@ -55,7 +57,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }
 
     //Métodos para adicionar usuários
-    private void adicionar() {
+    private void adicionar() throws SQLException {
         String sql = "Insert into tbusuarios(iduser,usuario,fone,login,senha,perfil) values(?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
@@ -77,8 +79,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     limparCampos();
                 }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLIntegrityConstraintViolationException exception) {
+            JOptionPane.showMessageDialog(null, "Usuário já CAdastrado");
+            //System.out.println(e);
         }
     }
 
@@ -380,7 +383,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCreateActionPerformed
-        adicionar();
+        try {
+            adicionar();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnUsuCreateActionPerformed
 
     private void btnUsuReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuReadActionPerformed
