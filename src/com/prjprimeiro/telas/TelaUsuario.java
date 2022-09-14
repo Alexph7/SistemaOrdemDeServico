@@ -94,11 +94,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(5, CboUsuPerfil.getSelectedItem().toString());
             pst.setString(6, txtUsuId.getText());
 
-            //Se o Usuario não for Cadastrado Exibir mensagem.
-            if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "Adicionar Usuário Primeiro.");
-            }
-
             if (txtUsuId.getText().isEmpty() || txtUsuNome.getText().isEmpty() || txtUsuLogin.getText().isEmpty() || txtUsuSenha.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
@@ -360,9 +355,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel9))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
                     .addComponent(jLabel11))
                 .addGap(20, 20, 20))
         );
