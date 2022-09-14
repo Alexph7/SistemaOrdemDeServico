@@ -171,10 +171,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(lblLogoAgua, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(963, 576));
+        setSize(new java.awt.Dimension(963, 566));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
