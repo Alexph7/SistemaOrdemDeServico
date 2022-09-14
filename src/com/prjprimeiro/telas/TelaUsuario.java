@@ -112,6 +112,28 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
+    //Metodo Responsavel pela remoção de usuarios
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem Certeza que Deseja Remover Usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from tbusuarios where iduser = ?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtUsuId.getText());
+                int apagado = pst.executeUpdate();
+                if(apagado>0){
+                    JOptionPane.showMessageDialog(null, "Usuário Removido com Sucesso");
+                    limparCampos();
+                }
+                
+            } catch (Exception e) {
+                //A linha abaixo comentada é usada para ajudar a indentificar o erro           
+                //System.out.println(e);
+                JOptionPane.showMessageDialog(null, "Erro ao Alterar Usuário!");
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,11 +202,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         txtUsuId.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         txtUsuSenha.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        txtUsuSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuSenhaActionPerformed(evt);
-            }
-        });
 
         CboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "user", "admin" }));
         CboUsuPerfil.setToolTipText("Selecione");
@@ -227,16 +244,16 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/deleteicon.png"))); // NOI18N
         btnUsuDelete.setToolTipText("Deletar");
         btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("*Campos Obrigatorios");
 
         txtUsuLogin.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        txtUsuLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuLoginActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel7.setText("Adicionar");
@@ -370,14 +387,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         consultar();
     }//GEN-LAST:event_btnUsuReadActionPerformed
 
-    private void txtUsuSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuSenhaActionPerformed
-
-    private void txtUsuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuLoginActionPerformed
-
     private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
         alterar();
     }//GEN-LAST:event_btnUsuUpdateActionPerformed
@@ -385,6 +394,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         limparCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
+        remover();
+    }//GEN-LAST:event_btnUsuDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
