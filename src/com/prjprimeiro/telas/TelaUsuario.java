@@ -16,7 +16,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public void limparCampos() {
+    private void limparCampos() {
         //As Linhas abaixo limpam os campos
         txtUsuId.setText(null);
         txtUsuNome.setText(null);
@@ -86,7 +86,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }
 
     //Criando metodo Alterar dados do usuário.
-    public void alterar() {
+    private void alterar() {
         String sql = "update tbusuarios set usuario=?, fone=?, login=?, senha=?, perfil=? where iduser=?";
         try {
             pst = conexao.prepareStatement(sql);
