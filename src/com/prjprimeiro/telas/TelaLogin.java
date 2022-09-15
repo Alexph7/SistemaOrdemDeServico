@@ -24,7 +24,7 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public void logar() {
+    private void logar() {
         String sql = "select * from tbusuarios where login =? and senha =?";
         try {
             //As Linhas abaixo preparam a consulta ao banco de dados em funçao 
