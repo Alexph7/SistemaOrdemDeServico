@@ -49,7 +49,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 //A Linha abaixo se refere a um combobox.
                 CboUsuPerfil.setSelectedItem(rs.getString(6));
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+                JOptionPane.showMessageDialog(null, "Usuário não Cadastrado");
                 limparCampos();
             }
         } catch (Exception e) {
@@ -132,7 +132,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário Removido com Sucesso");
                     limparCampos();
+                } else if (!txtUsuId.getText().equals(rs.getString(1))) {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
                 }
+
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
 
             } catch (Exception e) {
                 //A linha abaixo comentada é usada para ajudar a indentificar o erro           
