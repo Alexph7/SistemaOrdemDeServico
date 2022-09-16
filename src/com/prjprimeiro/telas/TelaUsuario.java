@@ -23,6 +23,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         txtUsuFone.setText(null);
         txtUsuLogin.setText(null);
         txtUsuSenha.setText(null);
+        CboUsuPerfil.setSelectedIndex(0);
     }
 
     /**
@@ -70,6 +71,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             //validação dos campos obrigatorios
             if (txtUsuId.getText().isEmpty() || txtUsuNome.getText().isEmpty() || txtUsuLogin.getText().isEmpty() || txtUsuSenha.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
+            } else if (CboUsuPerfil.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Selecione um Perfil");
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela
@@ -99,6 +102,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
             if (txtUsuId.getText().isEmpty() || txtUsuNome.getText().isEmpty() || txtUsuLogin.getText().isEmpty() || txtUsuSenha.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
+            } else if (CboUsuPerfil.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Selecione um Perfil");
             } else {
                 //A linha Abaixo altera a tabela com os dados do formulario
                 int alterado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela
@@ -124,11 +129,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txtUsuId.getText());
                 int apagado = pst.executeUpdate();
-                if(apagado>0){
+                if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário Removido com Sucesso");
                     limparCampos();
                 }
-                
+
             } catch (Exception e) {
                 //A linha abaixo comentada é usada para ajudar a indentificar o erro           
                 //System.out.println(e);
@@ -205,7 +210,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
         txtUsuSenha.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
-        CboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "user", "admin" }));
+        CboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "admin", "user" }));
         CboUsuPerfil.setToolTipText("Selecione");
         CboUsuPerfil.setName(""); // NOI18N
 
