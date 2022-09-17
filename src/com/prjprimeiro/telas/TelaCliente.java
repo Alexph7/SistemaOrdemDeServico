@@ -23,14 +23,14 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli, formapag) values (?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtClieNome.getText());
-            pst.setString(2, txtClieEnderec.getText());
+            pst.setString(1, txtCliNome.getText());
+            pst.setString(2, txtCliEnderec.getText());
             pst.setString(3, txtCliNumero.getText());
-            pst.setString(4, txtClieFone.getText());
+            pst.setString(4, txtCliFone.getText());
             pst.setString(5, cboCliPagament.getSelectedItem().toString());
 
             //Validação dos Campos
-            if (txtClieNome.getText().isEmpty() || txtClieEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
+            if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
             } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
@@ -42,10 +42,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente Adicionado Com Sucesso!");
                     txtCliPesquisa.setText(null);
-                    txtClieNome.setText(null);
-                    txtClieEnderec.setText(null);
+                    txtCliNome.setText(null);
+                    txtCliEnderec.setText(null);
                     txtCliNumero.setText(null);
-                    txtClieFone.setText(null);
+                    txtCliFone.setText(null);
                     cboCliPagament.setSelectedIndex(0);
                 }
             }
@@ -65,11 +65,25 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             rs = pst.executeQuery();
             //A linha Abaixo usa a biblioteca rs2xml.jar para preencher a tabela
             tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
+    }
+
+    //Método para setar conteúdo da tabela nos campos
+    public void setar_campos() {
+        int setar = tblClientes.getSelectedRow();
+        txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
+        txtCliEnderec.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
+        txtCliNumero.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
+        txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
+        if (tblClientes.getModel().getValueAt(setar, 5).equals("")) {
+            cboCliPagament.setSelectedIndex(0);
+        } else {
+            cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
+        }
     }
 
     /**
@@ -90,9 +104,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtClieNome = new javax.swing.JTextField();
-        txtClieFone = new javax.swing.JTextField();
-        txtClieEnderec = new javax.swing.JTextField();
+        txtCliNome = new javax.swing.JTextField();
+        txtCliFone = new javax.swing.JTextField();
+        txtCliEnderec = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cboCliPagament = new javax.swing.JComboBox<>();
@@ -144,11 +158,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("Telefone");
 
-        txtClieNome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCliNome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        txtClieFone.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCliFone.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        txtClieEnderec.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCliEnderec.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel5.setText("*Campos Obrigatórios");
@@ -182,6 +196,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,18 +238,18 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtClieFone, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboCliPagament, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtClieEnderec, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                                .addComponent(txtCliEnderec, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCliNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtClieNome)))
+                            .addComponent(txtCliNome)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -257,16 +276,16 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtClieNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtClieEnderec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCliEnderec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtCliNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClieFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(cboCliPagament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -290,11 +309,17 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnUClieCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUClieCreateActionPerformed
         adicionar();
     }//GEN-LAST:event_btnUClieCreateActionPerformed
-    
+
     private void txtCliPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisaKeyReleased
         //Este Evento é do tipo "Enquanto for digitando".
         pesquisar_cliente();
     }//GEN-LAST:event_txtCliPesquisaKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // Este evento seta o conteúdo da tabela "ao dar clique no mouse)
+        setar_campos();
+
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,10 +339,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtCliEnderec;
+    private javax.swing.JTextField txtCliFone;
+    private javax.swing.JTextField txtCliNome;
     private javax.swing.JTextField txtCliNumero;
     private javax.swing.JTextField txtCliPesquisa;
-    private javax.swing.JTextField txtClieEnderec;
-    private javax.swing.JTextField txtClieFone;
-    private javax.swing.JTextField txtClieNome;
     // End of variables declaration//GEN-END:variables
 }
