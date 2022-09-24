@@ -2,6 +2,7 @@ package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -31,15 +32,17 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
             //Validação dos Campos
             if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
+                
                 JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
+            
             } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
             } else {
-
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate();
                 //A Linha Abaixo confirma a inserção dos dados                
                 if (adicionado > 0) {
+                    
                     JOptionPane.showMessageDialog(null, "Cliente Adicionado Com Sucesso!");
                     txtCliPesquisa.setText(null);
                     txtCliNome.setText(null);
@@ -49,8 +52,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     cboCliPagament.setSelectedIndex(0);
                 }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro Ao Adicionar Cliente.");
+        } catch (HeadlessException | SQLException e) {
+            //System.out.println(e);
+            JOptionPane.showMessageDialog(null, e);//"Erro Ao Adicionar Cliente.");
         }
     }
 
