@@ -2,14 +2,13 @@ package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaUsuario extends javax.swing.JInternalFrame {
 
     //Usando a variavel de conexão do pacote prjprimeiro.Dal
     Connection conexao = null;
+    
     //Criando variaveis especiais para conexão com o banco de dados.
     //PreparedStatment e ResultSet são frameworks do pacote java.sql
     //e servem para preparar e executar as instruções sql
@@ -58,8 +57,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }
 
     //Métodos para adicionar usuários
-    private void adicionar() throws SQLException {
+    private void adicionar() {
         String sql = "Insert into tbusuarios(iduser,usuario,fone,login,senha,perfil) values(?,?,?,?,?,?)";
+        
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuId.getText());
@@ -76,13 +76,15 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela
-                //A Linha Abaixo confirma a inserção dos dados                
+                
+//A Linha Abaixo confirma a inserção dos dados                
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário Adicionado Com Sucesso!");
                     limparCampos();
                 }
             }
-        } catch (SQLIntegrityConstraintViolationException exception) {
+        } catch (SQLException ex) {
+        
             JOptionPane.showMessageDialog(null, "Usuário já Cadastrado");
             //System.out.println(e);
         }
@@ -106,7 +108,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Selecione um Perfil");
             } else {
                 //A linha Abaixo altera a tabela com os dados do formulario
-                int alterado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela
+                int alterado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela, tem q retornar 1 se conectar.
                 //A estrutura Abaixo confirma a alteração dos dados
                 if (alterado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do Usuário Alterados Com Sucesso!");
@@ -382,11 +384,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCreateActionPerformed
-        try {
-            adicionar();
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       adicionar();
     }//GEN-LAST:event_btnUsuCreateActionPerformed
 
     private void btnUsuReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuReadActionPerformed
