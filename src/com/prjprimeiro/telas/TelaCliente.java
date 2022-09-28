@@ -123,6 +123,25 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
     }
 
+    public void deletar() {
+        String sql = "delete from tbclientes where idcli = ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCliId.getText());
+            int statusDel;
+            int excluido = JOptionPane.showConfirmDialog(null, "Deseja Reallmente Excluir Cliente?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+            if (excluido == 0) {
+                statusDel = pst.executeUpdate();
+                if (statusDel == 1) {
+                    JOptionPane.showMessageDialog(null, "Cliente Excluído com sucesso");
+                    limpar_campos();
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,6 +205,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         btnClieDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/deleteicon.png"))); // NOI18N
         btnClieDelete.setToolTipText("Deletar");
         btnClieDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClieDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClieDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel7.setText("Adicionar");
@@ -330,12 +354,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(txtCliId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCliId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -382,6 +407,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnClieUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieUpdateActionPerformed
         alterar_cliente();
     }//GEN-LAST:event_btnClieUpdateActionPerformed
+
+    private void btnClieDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieDeleteActionPerformed
+        deletar();
+    }//GEN-LAST:event_btnClieDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
