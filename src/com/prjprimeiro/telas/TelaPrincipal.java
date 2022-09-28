@@ -95,6 +95,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menCadOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         menCadOs.setText("Os");
+        menCadOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCadOsActionPerformed(evt);
+            }
+        });
         menCacl.add(menCadOs);
 
         menCadUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
@@ -219,7 +224,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaUsuario usuario = new TelaUsuario();
         usuario.setVisible(true);
         desktop.add(usuario);
-                     
     }//GEN-LAST:event_menCadUsuarioActionPerformed
 
     private void menCadClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadClienActionPerformed
@@ -227,6 +231,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cliente.setVisible(true);
         desktop.add(cliente);
     }//GEN-LAST:event_menCadClienActionPerformed
+
+    private void menCadOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadOsActionPerformed
+        //chamando tela de ordem de serviço
+        TelaOs os = new TelaOs();
+        os.setVisible(true);
+        desktop.add(os);
+    }//GEN-LAST:event_menCadOsActionPerformed
 
     /**
      * @param args the command line arguments
