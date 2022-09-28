@@ -20,6 +20,15 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
+    private void limpar_campos() {
+        txtCliNome.setText(null);
+        txtCliEnderec.setText(null);
+        txtCliNumero.setText(null);
+        txtCliFone.setText(null);
+        cboCliPagament.setSelectedIndex(0);
+        txtCliPesquisa.requestFocus();
+    }
+
     private void adicionar() {
         String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli, formapag) values (?,?,?,?,?)";
         try {
@@ -32,9 +41,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
             //Validação dos Campos
             if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
-                
+
                 JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
-            
+
             } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
             } else {
@@ -42,14 +51,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 //A Linha Abaixo confirma a inserção dos dados                
                 if (adicionado > 0) {
-                    
+
                     JOptionPane.showMessageDialog(null, "Cliente Adicionado Com Sucesso!");
-                    txtCliPesquisa.setText(null);
-                    txtCliNome.setText(null);
-                    txtCliEnderec.setText(null);
-                    txtCliNumero.setText(null);
-                    txtCliFone.setText(null);
-                    cboCliPagament.setSelectedIndex(0);
+                    limpar_campos();
                 }
             }
         } catch (HeadlessException | SQLException e) {
@@ -76,7 +80,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     }
 
-    //Método para setar conteúdo da tabela nos campos
+    //Método para setar conteúdo na tabela
     public void setar_campos() {
         int setar = tblClientes.getSelectedRow();
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
@@ -87,6 +91,33 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             cboCliPagament.setSelectedIndex(0);
         } else {
             cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
+        }
+    }
+
+    public void alterar_cliente() {
+        String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?, formapag=? where nomecli=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCliNome.getText());
+            pst.setString(2, txtCliEnderec.getText());
+            pst.setString(3, txtCliNumero.getText());
+            pst.setString(4, txtCliFone.getText());
+            pst.setString(5, cboCliPagament.getSelectedItem().toString());
+            pst.setString(6, txtCliNome.getText());
+
+            //Validação dos Campos
+            if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
+            } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
+            }
+            int adicionado = pst.executeUpdate();
+            if (adicionado == 1) {
+                JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
+                limpar_campos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -142,6 +173,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         btnClieUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/updateicon.png"))); // NOI18N
         btnClieUpdate.setToolTipText("Modificar");
         btnClieUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClieUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClieUpdateActionPerformed(evt);
+            }
+        });
 
         btnClieDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/deleteicon.png"))); // NOI18N
         btnClieDelete.setToolTipText("Deletar");
@@ -322,8 +358,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // Este evento seta o conteúdo da tabela "ao dar clique no mouse)
         setar_campos();
-
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnClieUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieUpdateActionPerformed
+        alterar_cliente();
+    }//GEN-LAST:event_btnClieUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
