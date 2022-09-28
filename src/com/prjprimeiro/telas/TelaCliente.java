@@ -21,6 +21,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }
 
     private void limpar_campos() {
+        txtCliId.setText(null);
         txtCliPesquisa.setText(null);
         txtCliNome.setText(null);
         txtCliEnderec.setText(null);
@@ -127,14 +128,20 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         String sql = "delete from tbclientes where idcli = ?";
         try {
             pst = conexao.prepareStatement(sql);
+
             pst.setString(1, txtCliId.getText());
-            int statusDel;
-            int excluido = JOptionPane.showConfirmDialog(null, "Deseja Reallmente Excluir Cliente?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
-            if (excluido == 0) {
-                statusDel = pst.executeUpdate();
-                if (statusDel == 1) {
-                    JOptionPane.showMessageDialog(null, "Cliente Excluído com sucesso");
-                    limpar_campos();
+
+            if (txtCliId.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Escolha um cliente para exclusão");
+            } else {
+                int statusDel;
+                int excluido = JOptionPane.showConfirmDialog(null, "Deseja Reallmente Excluir Cliente?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+                if (excluido == 0) {
+                    statusDel = pst.executeUpdate();
+                    if (statusDel == 1) {
+                        JOptionPane.showMessageDialog(null, "Cliente Excluído com sucesso");
+                        limpar_campos();
+                    }
                 }
             }
         } catch (Exception e) {
