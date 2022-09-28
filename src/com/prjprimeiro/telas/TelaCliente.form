@@ -38,7 +38,7 @@
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnUClieCreate" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="btnClieCreate" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       <Component id="btnClieUpdate" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -152,7 +152,7 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnUClieCreate" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                  <Component id="btnClieCreate" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                   <Component id="btnClieUpdate" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                   <Component id="btnClieDelete" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
               </Group>
@@ -178,7 +178,7 @@
         <Property name="text" type="java.lang.String" value="Deletar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnUClieCreate">
+    <Component class="javax.swing.JButton" name="btnClieCreate">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/prjprimeiro/icones/addicon.png"/>
@@ -189,7 +189,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUClieCreateActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClieCreateActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClieUpdate">

@@ -95,7 +95,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         } else {
             cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
         }
-        btnUClieCreate.setEnabled(false);
+        btnClieCreate.setEnabled(false);
     }
 
     public void alterar_cliente() {
@@ -119,7 +119,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             if (adicionado > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
                 limpar_campos();
-                btnUClieCreate.setEnabled(true);
+                btnClieCreate.setEnabled(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -143,6 +143,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     if (statusDel == 1) {
                         JOptionPane.showMessageDialog(null, "Cliente Excluído com sucesso");
                         limpar_campos();
+                        btnClieCreate.setEnabled(true);
                     }
                 }
             }
@@ -161,7 +162,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel11 = new javax.swing.JLabel();
-        btnUClieCreate = new javax.swing.JButton();
+        btnClieCreate = new javax.swing.JButton();
         btnClieUpdate = new javax.swing.JButton();
         btnClieDelete = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -193,12 +194,12 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel11.setText("Deletar");
 
-        btnUClieCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/addicon.png"))); // NOI18N
-        btnUClieCreate.setToolTipText("Adicionar");
-        btnUClieCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUClieCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnClieCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/addicon.png"))); // NOI18N
+        btnClieCreate.setToolTipText("Adicionar");
+        btnClieCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClieCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUClieCreateActionPerformed(evt);
+                btnClieCreateActionPerformed(evt);
             }
         });
 
@@ -294,7 +295,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnUClieCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClieCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addComponent(btnClieUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -384,7 +385,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUClieCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClieCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClieUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClieDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -399,9 +400,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         setBounds(0, 0, 640, 506);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUClieCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUClieCreateActionPerformed
+    private void btnClieCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieCreateActionPerformed
         adicionar();
-    }//GEN-LAST:event_btnUClieCreateActionPerformed
+    }//GEN-LAST:event_btnClieCreateActionPerformed
 
     private void txtCliPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisaKeyReleased
         //Este Evento é do tipo "Enquanto for digitando".
@@ -423,9 +424,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClieCreate;
     private javax.swing.JButton btnClieDelete;
     private javax.swing.JButton btnClieUpdate;
-    private javax.swing.JButton btnUClieCreate;
     private javax.swing.JComboBox<String> cboCliPagament;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
