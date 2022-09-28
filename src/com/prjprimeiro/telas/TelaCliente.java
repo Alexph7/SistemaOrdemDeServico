@@ -4,6 +4,7 @@ import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 public class TelaCliente extends javax.swing.JInternalFrame {
@@ -29,6 +30,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         txtCliFone.setText(null);
         cboCliPagament.setSelectedIndex(0);
         txtCliPesquisa.requestFocus();
+        ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
     }
 
     private void adicionar() {
