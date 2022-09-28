@@ -274,6 +274,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 "id", "Nome", "Endereço", "Telefone", "Numero", "Forma De Pagamento"
             }
         ));
+        tblClientes.setFocusable(false);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
         tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblClientesMouseClicked(evt);
