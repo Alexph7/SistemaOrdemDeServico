@@ -95,6 +95,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         } else {
             cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
         }
+        btnUClieCreate.setEnabled(false);
     }
 
     public void alterar_cliente() {
@@ -118,6 +119,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             if (adicionado > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
                 limpar_campos();
+                btnUClieCreate.setEnabled(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
