@@ -28,7 +28,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-    public void pesquisar_cliente() {
+    private void pesquisar_cliente() {
         try {
             pst = conexao.prepareStatement("select idcli as Id, nomecli as Nome, fonecli as Fone from tbclientes where nomecli like ?");
             pst.setString(1, txtOsPesquisar.getText() + "%");
@@ -37,6 +37,11 @@ public class TelaOs extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private void setar_campos() {
+        int setar = tblOs.getSelectedRow();
+        txtOsId.setText(tblOs.getModel().getValueAt(setar, 0).toString());
     }
 
     /**
@@ -87,7 +92,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("OS - Ordem de Serviço");
-        setPreferredSize(new java.awt.Dimension(680, 484));
+        setPreferredSize(new java.awt.Dimension(640, 506));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameOpened(evt);
@@ -199,6 +204,11 @@ public class TelaOs extends javax.swing.JInternalFrame {
 
         txtOsId.setEditable(false);
 
+        tblOs = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblOs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -210,6 +220,12 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 "Id", "Nome", "Fone"
             }
         ));
+        tblOs.setFocusable(false);
+        tblOs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblOs);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -477,6 +493,10 @@ public class TelaOs extends javax.swing.JInternalFrame {
     private void txtOsPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOsPesquisarKeyReleased
         pesquisar_cliente();
     }//GEN-LAST:event_txtOsPesquisarKeyReleased
+
+    private void tblOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOsMouseClicked
+        setar_campos();
+    }//GEN-LAST:event_tblOsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
