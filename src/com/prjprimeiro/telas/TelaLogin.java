@@ -116,6 +116,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnLogin.setText("Login");
@@ -211,6 +216,12 @@ public class TelaLogin extends javax.swing.JFrame {
             logar();
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        txtSenha.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
