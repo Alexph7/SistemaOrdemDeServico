@@ -7,6 +7,7 @@ package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -108,6 +109,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setText("SENHA");
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -198,6 +204,13 @@ public class TelaLogin extends javax.swing.JFrame {
             lblStatustxt.setText("Não Conectado");
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+       //Evento para chamar metodo apertando enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            logar();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     /**
      * @param args the command line arguments
