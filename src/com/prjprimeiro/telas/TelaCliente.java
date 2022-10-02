@@ -86,6 +86,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     //Método para setar conteúdo na tabela
     public void setar_campos() {
+        try {
         int setar = tblClientes.getSelectedRow();
         txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
@@ -98,9 +99,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
         }
         btnClieCreate.setEnabled(false);
+    
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Pesquisa Vazia");
+        }
     }
-
-    public void alterar_cliente() {
+    
+public void alterar_cliente() {
         String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?, formapag=? where idcli=?";
         try {
             pst = conexao.prepareStatement(sql);
