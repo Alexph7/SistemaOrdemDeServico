@@ -15,8 +15,7 @@ import javax.swing.JOptionPane;
  * @author ph757
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-   
-    
+
     /**
      * Creates new form TelaPrincipal
      */
@@ -38,7 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblLogoAgua = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
-        menCacl = new javax.swing.JMenu();
+        menCadastro = new javax.swing.JMenu();
         menCadClien = new javax.swing.JMenuItem();
         menCadOs = new javax.swing.JMenuItem();
         menCadUsuario = new javax.swing.JMenuItem();
@@ -82,7 +81,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lblLogoAgua.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        menCacl.setText("Cadastro");
+        menCadastro.setText("Cadastro");
+        menCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menCadastroMouseClicked(evt);
+            }
+        });
 
         menCadClien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         menCadClien.setText("Cliente");
@@ -91,7 +95,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menCadClienActionPerformed(evt);
             }
         });
-        menCacl.add(menCadClien);
+        menCadastro.add(menCadClien);
 
         menCadOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         menCadOs.setText("Os");
@@ -100,7 +104,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menCadOsActionPerformed(evt);
             }
         });
-        menCacl.add(menCadOs);
+        menCadastro.add(menCadOs);
 
         menCadUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         menCadUsuario.setText("Usuários");
@@ -110,9 +114,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menCadUsuarioActionPerformed(evt);
             }
         });
-        menCacl.add(menCadUsuario);
+        menCadastro.add(menCadUsuario);
 
-        Menu.add(menCacl);
+        Menu.add(menCadastro);
 
         menRelat.setText("Relatório");
         menRelat.setEnabled(false);
@@ -193,14 +197,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Date data = new Date();
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         lblData.setText(formatador.format(data));
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void menOpçSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpçSairActionPerformed
         // Exibe uma caixa de dialogo ao sair
-        int sair = JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair?","Atenção",JOptionPane.YES_NO_OPTION);
-        
-        if(sair == JOptionPane.YES_OPTION){
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair?", "Atenção", JOptionPane.YES_NO_OPTION);
+
+        if (sair == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_menOpçSairActionPerformed
@@ -209,7 +213,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //chamando a tela "sobre"
         TelaSobre sobre = new TelaSobre();
         sobre.setVisible(true);
-        
+
     }//GEN-LAST:event_menAjudSobreActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -238,6 +242,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         os.setVisible(true);
         desktop.add(os);
     }//GEN-LAST:event_menCadOsActionPerformed
+
+    private void menCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menCadastroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menCadastroMouseClicked
 
     /**
      * @param args the command line arguments
@@ -282,10 +290,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAjud;
     private javax.swing.JMenuItem menAjudSobre;
-    private javax.swing.JMenu menCacl;
     private javax.swing.JMenuItem menCadClien;
     private javax.swing.JMenuItem menCadOs;
     public static javax.swing.JMenuItem menCadUsuario;
+    private javax.swing.JMenu menCadastro;
     private javax.swing.JMenu menOpç;
     private javax.swing.JMenuItem menOpçSair;
     public static javax.swing.JMenuItem menRelServ;
