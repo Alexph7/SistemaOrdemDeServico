@@ -150,7 +150,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
             pst.setString(5, txtOsTecnico.getText());
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtOsNum.getText());
-            int adicionado = pst.executeUpdate();
             //validação campos obrigatórios
             if (txtOsDefeito.getText().isEmpty() || txtOsServico.getText().isEmpty() || txtOsTecnico.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
