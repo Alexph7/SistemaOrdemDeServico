@@ -57,40 +57,50 @@
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="110" pref="110" max="-2" attributes="0"/>
-                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="128" pref="128" max="-2" attributes="0"/>
-                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="110" pref="110" max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="128" pref="128" max="-2" attributes="0"/>
+                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnOsCreate" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnOsRead" min="-2" pref="125" max="-2" attributes="0"/>
+                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnOsUpdate" min="-2" pref="125" max="-2" attributes="0"/>
+                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnOsDelete" min="-2" pref="125" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="txtOsEquipamento" min="-2" pref="500" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                               <Component id="txtOsDefeito" min="-2" pref="501" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                               <Component id="txtOsServico" min="-2" pref="501" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                               <Component id="txtOsTecnico" min="-2" pref="161" max="-2" attributes="0"/>
@@ -100,15 +110,6 @@
                               <Component id="txtOsValor" min="-2" pref="147" max="-2" attributes="0"/>
                               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                               <Component id="btnOsImprimir" min="-2" pref="103" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnOsCreate" min="-2" pref="120" max="-2" attributes="0"/>
-                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                              <Component id="btnOsRead" min="-2" pref="125" max="-2" attributes="0"/>
-                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                              <Component id="btnOsUpdate" min="-2" pref="125" max="-2" attributes="0"/>
-                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                              <Component id="btnOsDelete" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -176,7 +177,7 @@
                       <Component id="btnOsImprimir" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnOsCreate" min="-2" pref="140" max="-2" attributes="0"/>
                   <Component id="btnOsRead" min="-2" pref="140" max="-2" attributes="0"/>
@@ -191,7 +192,7 @@
                   <Component id="jLabel13" min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="jLabel14" min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
