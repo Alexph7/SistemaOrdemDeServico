@@ -572,7 +572,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11))
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         setBounds(0, 0, 639, 505);
