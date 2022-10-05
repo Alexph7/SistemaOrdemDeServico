@@ -606,10 +606,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
 
     private void btnOsReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsReadActionPerformed
        consultar_os();
-       TelaOsConsulta con = new TelaOsConsulta();
-       con.setarForm();
-       con.setarForm2();
-       con.setVisible(true);
     }//GEN-LAST:event_btnOsReadActionPerformed
 
     private void btnOsCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsCreateActionPerformed
