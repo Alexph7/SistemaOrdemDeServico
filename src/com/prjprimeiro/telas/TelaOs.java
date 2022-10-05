@@ -21,8 +21,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     //a variavel abaixo armazena um texto de acordo com a seleção do radioButton
-    static String tipo;
-    
+    String tipo;
 
     /**
      * Creates new form TelaOs
@@ -78,7 +77,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
             pst.setString(5, txtOsServico.getText());
             pst.setString(6, txtOsTecnico.getText());
             //troca um caracter por outro, nesse caso o valor aceitará a virgula no lugar ponto
-            pst.setString(7, txtOsValor.getText().replace(".", ","));
+            pst.setString(7, txtOsValor.getText().replace(",", "."));
             pst.setString(8, txtCliId.getText());
 
             //validação campos obrigatórios
@@ -138,6 +137,39 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 //System.out.println(e2);                
                 JOptionPane.showMessageDialog(null, e2);
             }
+        }
+    }
+
+    private void alterar_os() {
+        try {
+            pst = conexao.prepareStatement("update tbos set tipo=?, situacao=?, defeito=?, serviço=?, tecnico=?, valor=? where os=?");
+            pst.setString(1, tipo);
+            pst.setString(2, cbOsSituacao.getSelectedItem().toString());
+            pst.setString(3, txtOsDefeito.getText());
+            pst.setString(4, txtOsServico.getText());
+            pst.setString(5, txtOsTecnico.getText());
+            pst.setString(6, txtOsValor.getText().replace(",", "."));
+            pst.setString(7, txtOsNum.getText());
+            int adicionado = pst.executeUpdate();
+            //validação campos obrigatórios
+            if (txtOsDefeito.getText().isEmpty() || txtOsServico.getText().isEmpty() || txtOsTecnico.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
+            } else if (cbOsSituacao.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Selecione a Situação do Equipamento");
+            } else {
+                int status = pst.executeUpdate();
+                if (status > 0) {
+                    JOptionPane.showMessageDialog(null, "O.S Emitida Com Sucesso");
+                    limpar_campos();
+                    btnOsCreate.setEnabled(true);
+                    txtCliPesquisar.setEnabled(true);
+                    tblOs.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro Ao Alterar Dados");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -587,7 +619,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCliPesquisarActionPerformed
 
     private void btnOsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsUpdateActionPerformed
-
+        alterar_os();
     }//GEN-LAST:event_btnOsUpdateActionPerformed
 
     private void btnOsDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsDeleteActionPerformed
@@ -605,7 +637,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnOsReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsReadActionPerformed
-       consultar_os();
+        consultar_os();
     }//GEN-LAST:event_btnOsReadActionPerformed
 
     private void btnOsCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsCreateActionPerformed
