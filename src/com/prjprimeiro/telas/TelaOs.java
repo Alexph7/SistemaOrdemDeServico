@@ -153,8 +153,13 @@ public class TelaOs extends javax.swing.JInternalFrame {
             pst.setString(6, txtOsValor.getText().replace(",", "."));
             pst.setString(7, txtOsNum.getText());
             //validação campos obrigatórios
-            if (txtOsDefeito.getText().isEmpty() || txtOsServico.getText().isEmpty() || txtOsTecnico.getText().isEmpty()) {
+            if (txtOsDefeito.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
+                txtOsDefeito.requestFocus();
+            } else if (txtOsServico.getText().isEmpty()) {
+                txtOsServico.requestFocus();
+            } else if (txtOsTecnico.getText().isEmpty()) {
+                txtOsTecnico.requestFocus();
             } else if (cbOsSituacao.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Selecione a Situação do Equipamento");
             } else {
@@ -171,6 +176,28 @@ public class TelaOs extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void excluir_os() {
+        int confirm = JOptionPane.showConfirmDialog(null, "Tem Certeza que deseja excluir Os?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirm == 0) {
+            try {
+                pst = conexao.prepareStatement("delete from tbos where os = ?");
+                pst.setString(1, txtOsNum.getText());
+                int status = pst.executeUpdate();
+                if (status > 0) {
+                    JOptionPane.showMessageDialog(null, "Os Excluida com sucesso");
+                    limpar_campos();
+                    btnOsCreate.setEnabled(true);
+                    txtCliPesquisar.setEnabled(true);
+                    tblOs.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro Ao Exxcluir OS");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }
 
@@ -258,11 +285,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
         txtOsNum.setAutoscrolls(false);
         txtOsNum.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtOsNum.setFocusable(false);
-        txtOsNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOsNumActionPerformed(evt);
-            }
-        });
 
         txtOsData.setEditable(false);
         txtOsData.setBackground(new java.awt.Color(225, 223, 223));
@@ -344,11 +366,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(315, 164));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtCliPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCliPesquisarActionPerformed(evt);
-            }
-        });
         txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCliPesquisarKeyReleased(evt);
@@ -611,20 +628,12 @@ public class TelaOs extends javax.swing.JInternalFrame {
         setBounds(0, 0, 639, 505);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtOsNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOsNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOsNumActionPerformed
-
-    private void txtCliPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliPesquisarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCliPesquisarActionPerformed
-
     private void btnOsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsUpdateActionPerformed
         alterar_os();
     }//GEN-LAST:event_btnOsUpdateActionPerformed
 
     private void btnOsDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsDeleteActionPerformed
-
+        excluir_os();
     }//GEN-LAST:event_btnOsDeleteActionPerformed
 
     private void btnOsImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsImprimirActionPerformed
