@@ -157,8 +157,10 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
                 txtOsDefeito.requestFocus();
             } else if (txtOsServico.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
                 txtOsServico.requestFocus();
             } else if (txtOsTecnico.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
                 txtOsTecnico.requestFocus();
             } else if (cbOsSituacao.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Selecione a Situação do Equipamento");
