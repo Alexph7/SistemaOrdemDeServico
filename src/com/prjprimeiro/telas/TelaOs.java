@@ -54,6 +54,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
     }
 
     private void limpar_campos() {
+        txtOsData.setText(null);
+        txtOsNum.setText(null);
         txtCliPesquisar.setText(null);
         txtCliId.setText(null);
         cbOsSituacao.setSelectedIndex(0);
@@ -158,7 +160,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
             } else {
                 int status = pst.executeUpdate();
                 if (status > 0) {
-                    JOptionPane.showMessageDialog(null, "O.S Emitida Com Sucesso");
+                    JOptionPane.showMessageDialog(null, "O.S Alterada Com Sucesso");
                     limpar_campos();
                     btnOsCreate.setEnabled(true);
                     txtCliPesquisar.setEnabled(true);
