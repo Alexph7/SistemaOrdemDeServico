@@ -21,7 +21,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     //a variavel abaixo armazena um texto de acordo com a seleção do radioButton
-    String tipo;
+    private String tipo;
 
     /**
      * Creates new form TelaOs
@@ -29,6 +29,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
     public TelaOs() {
         initComponents();
         conexao = ModuloConexao.conector();
+        rbtOsOrcamento.setSelected(true);
+        tipo = "orçamento";
     }
 
     private void pesquisar_cliente() {
@@ -66,6 +68,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         txtOsValor.setText(null);
         txtCliPesquisar.requestFocus();
         ((DefaultTableModel) tblOs.getModel()).setRowCount(0);
+        btnOsImprimir.setEnabled(false);
+        btnOsUpdate.setEnabled(false);
+        btnOsDelete.setEnabled(false);
     }
 
     // Método para cadastrar uma Os
@@ -91,7 +96,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 int status = pst.executeUpdate();
                 if (status > 0) {
                     JOptionPane.showMessageDialog(null, "O.S Emitida Com Sucesso");
-                    limpar_campos();
+                    btnOsCreate.setEnabled(false);
+                    btnOsRead.setEnabled(false);
+                    btnOsImprimir.setEnabled(true);
                 }
             }
         } catch (SQLException e) {
@@ -105,7 +112,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Campo Vazio, Sem Pesquisa");
         } else {
             try {
-                pst = conexao.prepareStatement("select * from tbos where os = " + num_os);
+                pst = conexao.prepareStatement("select os,date_format(data_os,'%d/%m/%Y - %H:%i'),tipo,situacao,equipamento,defeito,serviço,tecnico,valor,idcli from tbos where os = " + num_os);
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     txtOsNum.setText(rs.getString(1));
@@ -132,7 +139,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
                     //evitar troca de equipamento
                     txtOsEquipamento.setEditable(false);
                     txtOsEquipamento.setToolTipText("Não troca aparelho para modificação");
-
+                    btnOsImprimir.setEnabled(true);
+                    btnOsUpdate.setEnabled(true);
+                    btnOsDelete.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "OS não encontrada");
                 }
@@ -453,6 +462,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         btnOsUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/updateicon.png"))); // NOI18N
         btnOsUpdate.setToolTipText("Modificar");
         btnOsUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOsUpdate.setEnabled(false);
         btnOsUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOsUpdateActionPerformed(evt);
@@ -462,6 +472,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         btnOsDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/prjprimeiro/icones/deleteicon.png"))); // NOI18N
         btnOsDelete.setToolTipText("Deletar");
         btnOsDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOsDelete.setEnabled(false);
         btnOsDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOsDeleteActionPerformed(evt);
@@ -484,6 +495,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         btnOsImprimir.setText("Imprimir");
         btnOsImprimir.setToolTipText("Imprimir");
         btnOsImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOsImprimir.setEnabled(false);
         btnOsImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOsImprimirActionPerformed(evt);
@@ -648,12 +660,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnOsImprimirActionPerformed
 
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        //abre a janela com a opção ja selecionada, pois a mesma não pode iniciar sem marcação pois no banco de dados está marcada com notnull
-        rbtOsOrcamento.setSelected(true);
-        tipo = "orçamento";
-    }//GEN-LAST:event_formInternalFrameOpened
-
     private void btnOsReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsReadActionPerformed
         consultar_os();
     }//GEN-LAST:event_btnOsReadActionPerformed
@@ -677,6 +683,10 @@ public class TelaOs extends javax.swing.JInternalFrame {
     private void rbtOsOrdemServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOsOrdemServActionPerformed
         tipo = "os";
     }//GEN-LAST:event_rbtOsOrdemServActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
