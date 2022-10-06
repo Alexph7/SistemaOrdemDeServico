@@ -157,13 +157,13 @@ public class TelaOs extends javax.swing.JInternalFrame {
             pst.setString(7, txtOsNum.getText());
             //validação campos obrigatórios
             if (txtOsDefeito.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
+                JOptionPane.showMessageDialog(null, "Preencher Campo Defeito");
                 txtOsDefeito.requestFocus();
             } else if (txtOsServico.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
+                JOptionPane.showMessageDialog(null, "Preencher Campo Serviço");
                 txtOsServico.requestFocus();
             } else if (txtOsTecnico.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencher Campos Vazios");
+                JOptionPane.showMessageDialog(null, "Preencher Campo Técnico");
                 txtOsTecnico.requestFocus();
             } else if (cbOsSituacao.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Selecione a Situação do Equipamento");
@@ -199,6 +199,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
                     btnOsCreate.setEnabled(true);
                     txtCliPesquisar.setEnabled(true);
                     tblOs.setVisible(true);
+                    txtOsEquipamento.setEditable(true);
+                    txtOsEquipamento.setToolTipText(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro Ao Exxcluir OS");
                 }
