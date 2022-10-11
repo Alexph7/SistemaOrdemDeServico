@@ -28,7 +28,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         txtCliEnderec.setText(null);
         txtCliNumero.setText(null);
         txtCliFone.setText(null);
-        cboCliPagament.setSelectedIndex(0);
         txtCliPesquisa.requestFocus();
         ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
     }
@@ -41,15 +40,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             pst.setString(2, txtCliEnderec.getText());
             pst.setString(3, txtCliNumero.getText());
             pst.setString(4, txtCliFone.getText());
-            pst.setString(5, cboCliPagament.getSelectedItem().toString());
 
             //Validação dos Campos
             if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
-
                 JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
-
-            } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
-                JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate();
@@ -87,25 +81,20 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     //Método para setar conteúdo na tabela
     public void setar_campos() {
         try {
-        int setar = tblClientes.getSelectedRow();
-        txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
-        txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
-        txtCliEnderec.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
-        txtCliNumero.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
-        txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
-        if (tblClientes.getModel().getValueAt(setar, 5).equals("")) {
-            cboCliPagament.setSelectedIndex(0);
-        } else {
-            cboCliPagament.setSelectedItem(tblClientes.getModel().getValueAt(setar, 5).toString());
-        }
-        btnClieCreate.setEnabled(false);
-    
+            int setar = tblClientes.getSelectedRow();
+            txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
+            txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
+            txtCliEnderec.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
+            txtCliNumero.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
+            txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
+            btnClieCreate.setEnabled(false);
+
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Pesquisa Vazia");
         }
     }
-    
-public void alterar_cliente() {
+
+    public void alterar_cliente() {
         String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?, formapag=? where idcli=?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -113,14 +102,11 @@ public void alterar_cliente() {
             pst.setString(2, txtCliEnderec.getText());
             pst.setString(3, txtCliNumero.getText());
             pst.setString(4, txtCliFone.getText());
-            pst.setString(5, cboCliPagament.getSelectedItem().toString());
             pst.setString(6, txtCliId.getText());
 
             //Validação dos Campos
             if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
-            } else if (cboCliPagament.getSelectedItem().equals("Selecione")) {
-                JOptionPane.showMessageDialog(null, "Escolha Um Método de Pagamento.");
             }
             int adicionado = pst.executeUpdate();
             if (adicionado > 0) {
@@ -181,8 +167,6 @@ public void alterar_cliente() {
         txtCliFone = new javax.swing.JTextField();
         txtCliEnderec = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cboCliPagament = new javax.swing.JComboBox<>();
         txtCliPesquisa = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -251,12 +235,6 @@ public void alterar_cliente() {
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel5.setText("*Campos Obrigatórios");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel6.setText("*Pagamento");
-
-        cboCliPagament.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cboCliPagament.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Crédito", "Débito", "Dinheiro", "Pix", "Paga Depois", "Outro" }));
 
         txtCliPesquisa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtCliPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -336,17 +314,12 @@ public void alterar_cliente() {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboCliPagament, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(txtCliEnderec, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCliNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtCliNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -394,8 +367,6 @@ public void alterar_cliente() {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(cboCliPagament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,7 +412,6 @@ public void alterar_cliente() {
     private javax.swing.JButton btnClieCreate;
     private javax.swing.JButton btnClieDelete;
     private javax.swing.JButton btnClieUpdate;
-    private javax.swing.JComboBox<String> cboCliPagament;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -449,7 +419,6 @@ public void alterar_cliente() {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
