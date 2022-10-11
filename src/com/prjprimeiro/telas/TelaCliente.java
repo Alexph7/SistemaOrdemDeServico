@@ -102,14 +102,14 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }
 
     public void alterar_cliente() {
-        String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?, formapag=? where idcli=?";
+        String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?where idcli=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtCliNome.getText());
             pst.setString(2, txtCliEnderec.getText());
             pst.setString(3, txtCliNumero.getText());
             pst.setString(4, txtCliFone.getText());
-            pst.setString(6, txtCliId.getText());
+            pst.setString(5, txtCliId.getText());
 
             //Validação dos Campos
             if (txtCliNome.getText().isEmpty()) {
