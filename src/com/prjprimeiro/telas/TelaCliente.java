@@ -33,7 +33,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }
 
     private void adicionar() {
-        String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli, formapag) values (?,?,?,?,?)";
+        String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli) values (?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtCliNome.getText());
@@ -42,8 +42,15 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             pst.setString(4, txtCliFone.getText());
 
             //Validação dos Campos
-            if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
+            if (txtCliNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Nome");
+                txtCliNome.requestFocus();
+            } else if (txtCliEnderec.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Endereço");
+                txtCliEnderec.requestFocus();
+            } else if (txtCliNumero.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Numero");
+                txtCliNumero.requestFocus();
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate();
@@ -60,7 +67,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
     }
 
-    //Metodo para pesquisar clientes com filtro.
+//Metodo para pesquisar clientes com filtro.
     private void pesquisar_cliente() {
         String sql = "select idcli as id, nomecli as Nome, enderecocli as Endereço, numerocli as Numero, fonecli as Fone, formapag as Pagamento from tbclientes where nomecli like ?";
         try {
@@ -105,14 +112,22 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             pst.setString(6, txtCliId.getText());
 
             //Validação dos Campos
-            if (txtCliNome.getText().isEmpty() || txtCliEnderec.getText().isEmpty() || txtCliNumero.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios");
-            }
-            int adicionado = pst.executeUpdate();
-            if (adicionado > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
-                limpar_campos();
-                btnClieCreate.setEnabled(true);
+            if (txtCliNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Nome");
+                txtCliNome.requestFocus();
+            } else if (txtCliEnderec.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Endereço");
+                txtCliEnderec.requestFocus();
+            } else if (txtCliNumero.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha o Campo Numero");
+                txtCliNumero.requestFocus();
+            } else {
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
+                    limpar_campos();
+                    btnClieCreate.setEnabled(true);
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
