@@ -69,7 +69,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
 //Metodo para pesquisar clientes com filtro.
     private void pesquisar_cliente() {
-        String sql = "select idcli as id, nomecli as Nome, enderecocli as Endereço, numerocli as Numero, fonecli as Fone, formapag as Pagamento from tbclientes where nomecli like ?";
+        String sql = "select idcli as id, nomecli as Nome, enderecocli as Endereço, numerocli as Numero, fonecli as Fone from tbclientes where nomecli like ?";
         try {
             pst = conexao.prepareStatement(sql);
             //Passando o conteúdo da caixa de pesquisa para o ?
@@ -270,13 +270,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         };
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Endereço", "Telefone", "Numero", "Forma De Pagamento"
+                "id", "Nome", "Endereço", "Telefone", "Numero"
             }
         ));
         tblClientes.setFocusable(false);
