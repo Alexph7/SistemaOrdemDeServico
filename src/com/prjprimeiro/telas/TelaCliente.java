@@ -22,12 +22,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }
 
     private boolean cli_duplicado(String nome, String end) {
-        String sql = "select * from tbclientes where nomecli =? and enderecocli =?";
+        String sql = "select * from tbclientes where nomecli =?";
 
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, nome);
-            pst.setString(2, end);
 
             rs = pst.executeQuery();
             if (rs.next()) {
@@ -433,6 +432,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void txtCliPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisaKeyReleased
         //Este Evento é do tipo "Enquanto for digitando".
         pesquisar_cliente();
+        if (txtCliPesquisa.getText().equals("")) {
+            btnClieCreate.setEnabled(true);
+        } else {
+            btnClieCreate.setEnabled(false);
+        }
     }//GEN-LAST:event_txtCliPesquisaKeyReleased
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
