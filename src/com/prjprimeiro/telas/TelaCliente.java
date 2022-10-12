@@ -21,6 +21,30 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
+    private boolean cli_duplicado(String nome, String end) {
+        String sql = "select * from tbclientes where nomecli =? and enderecocli =?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nome);
+            pst.setString(2, end);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String nomebd = rs.getString(2);//receber o resultSet do Banco
+                String enderecobd = rs.getString(3);
+                if (nomebd.equalsIgnoreCase(nome)
+                        && enderecobd.equalsIgnoreCase(end)) {
+                    return true;
+                }
+            } else {
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
+
     private void limpar_campos() {
         txtCliId.setText(null);
         txtCliPesquisa.setText(null);
@@ -51,6 +75,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             } else if (txtCliNumero.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha o Campo Numero");
                 txtCliNumero.requestFocus();
+            } else if (cli_duplicado(txtCliNome.getText(), txtCliEnderec.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Já Existe um Cliente com Esse Nome Neste Endereço");
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate();
@@ -63,7 +89,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
         } catch (HeadlessException | SQLException e) {
             //System.out.println(e);
-            JOptionPane.showMessageDialog(null, e);//"Erro Ao Adicionar Cliente.");
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
