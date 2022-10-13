@@ -22,6 +22,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     Connection conexao;
+
     /**
      * Creates new form TelaPrincipal
      */
@@ -135,6 +136,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menRelServ.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         menRelServ.setText("Serviços");
+        menRelServ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menRelServActionPerformed(evt);
+            }
+        });
         menRelat.add(menRelServ);
 
         Menu.add(menRelat);
@@ -257,19 +263,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menRelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelCliActionPerformed
         //Gerando um relatório de clientes
-        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão deste relatório?", "Atenção",JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == 0) {
             //imprimindo relatorio com framework jasperReport
             try {
                 //Usando a classe jasperPrint para preparar a impressão
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/clientes.jasper",null,conexao);
+                JasperPrint print = JasperFillManager.fillReport("C:/Reports/clientes.jasper", null, conexao);
                 //Linha abaixo exibe o relatorio através do jasperView
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }//GEN-LAST:event_menRelCliActionPerformed
+
+    private void menRelServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelServActionPerformed
+//Gerando um relatório de serviços
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == 0) {
+            //imprimindo relatorio com framework jasperReport
+            try {
+                //Usando a classe jasperPrint para preparar a impressão
+                JasperPrint print = JasperFillManager.fillReport("C:/Reports/servicos.jasper", null, conexao);
+                //Linha abaixo exibe o relatorio através do jasperView
+                JasperViewer.viewReport(print, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_menRelServActionPerformed
 
     /**
      * @param args the command line arguments
