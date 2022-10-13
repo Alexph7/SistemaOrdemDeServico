@@ -10,6 +10,9 @@ import com.prjprimeiro.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -657,7 +660,20 @@ public class TelaOs extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnOsDeleteActionPerformed
 
     private void btnOsImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsImprimirActionPerformed
-        // TODO add your handling code here:
+//Gerando um relatório de clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão desta O.S?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == 0) {
+            //imprimindo relatorio com framework jasperReport
+            try {
+                //Usando a classe jasperPrint para preparar a impressão
+                JasperPrint print = JasperFillManager.fillReport("C:/Reports/O.S.jasper", null, conexao);
+                //Linha abaixo exibe o relatorio através do jasperView
+                JasperViewer.viewReport(print, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
     }//GEN-LAST:event_btnOsImprimirActionPerformed
 
     private void btnOsReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsReadActionPerformed
