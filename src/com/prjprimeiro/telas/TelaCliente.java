@@ -426,7 +426,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnClieCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieCreateActionPerformed
         boolean duplic = cli_duplicado();
         if (duplic == true) {
-            JOptionPane.showMessageDialog(null, "ooooo");
+            JOptionPane.showMessageDialog(null, "Já Existe Cliente Com Esse Nome e Endereço Cadastrado");
         } else {
             adicionar();
         }
