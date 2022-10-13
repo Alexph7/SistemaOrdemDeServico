@@ -21,22 +21,21 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-    private boolean cli_duplicado(String nome, String end) {
+    private boolean cli_duplicado() {
         String sql = "select * from tbclientes where nomecli =?";
 
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, nome);
+            pst.setString(1, txtCliNome.getText());
 
             rs = pst.executeQuery();
             if (rs.next()) {
                 String nomebd = rs.getString(2);//receber o resultSet do Banco
                 String enderecobd = rs.getString(3);
-                if (nomebd.equalsIgnoreCase(nome)
-                        && enderecobd.equalsIgnoreCase(end)) {
+                if (nomebd.equalsIgnoreCase(txtCliNome.getText())
+                        && enderecobd.equalsIgnoreCase(txtCliEnderec.getText())) {
                     return true;
                 }
-            } else {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -56,6 +55,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }
 
     private void adicionar() {
+
         String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli) values (?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
@@ -74,17 +74,15 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             } else if (txtCliNumero.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha o Campo Numero");
                 txtCliNumero.requestFocus();
-            } else if (cli_duplicado(txtCliNome.getText(), txtCliEnderec.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Já Existe um Cliente com Esse Nome Neste Endereço");
             } else {
                 //A linha Abaixo atualiza a tabela com os dados do formulario
                 int adicionado = pst.executeUpdate();
                 //A Linha Abaixo confirma a inserção dos dados                
                 if (adicionado > 0) {
-
                     JOptionPane.showMessageDialog(null, "Cliente Adicionado Com Sucesso!");
                     limpar_campos();
                 }
+
             }
         } catch (HeadlessException | SQLException e) {
             //System.out.println(e);
@@ -426,7 +424,12 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClieCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClieCreateActionPerformed
-        adicionar();
+        boolean duplic = cli_duplicado();
+        if (duplic == true) {
+            JOptionPane.showMessageDialog(null, "ooooo");
+        } else {
+            adicionar();
+        }
     }//GEN-LAST:event_btnClieCreateActionPerformed
 
     private void txtCliPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisaKeyReleased
