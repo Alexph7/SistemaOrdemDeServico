@@ -61,7 +61,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == 0) {
             try {
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/clientes.jasper", null, conexao);
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/clientes.jasper"), null, conexao);
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -79,7 +79,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (confirma == 0) {
             try {
                 //Usando a classe jasperPrint para preparar a impressão
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/servicos.jasper", null, conexao);
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/servicos.jasper"), null, conexao);
 
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {
