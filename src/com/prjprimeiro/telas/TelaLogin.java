@@ -1,3 +1,27 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2022 ph757.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package com.prjprimeiro.telas;
 
 import java.sql.*;
@@ -7,40 +31,34 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author ph757
+ * Classe Responsavel por Login
+ * @author Alexph7
  */
+
 public class TelaLogin extends javax.swing.JFrame {
 
-    //Usando a variavel de conexão do pacote prjprimeiro.Dal
     Connection conexao = null;
-    //Criando variaveis especiais para conexão com o banco de dados.
-    //PreparedStatment e ResultSet são frameworks do pacote java.sql
-    //e servem para preparar e executar as instruções sql
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    /**
+     * Método Paara verficar Se Dados de Entrada Estão No Banco de Dados, Se Sim Faz Liberação Do Sistema.
+     */
+    
     private void logar() {
         String sql = "select * from tbusuarios where login =? and senha =?";
         try {
-            //As Linhas abaixo preparam a consulta ao banco de dados em funçao 
-            //do que foi digitado nas caixas de texto da tela de login,
-            //O acento "?" é substituido pelo conteudo das variaveis.
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuario.getText());
             String captura = new String(txtSenha.getPassword());
             pst.setString(2, captura);
-
-            //A Linha Abaixo executa a query
             rs = pst.executeQuery();
 
-            //se existir usuario e senha correspondente
             if (rs.next()) {
 
-                //a linha abaixo obtem o ocnteudo do campo perfil do mysql da tabela tbusuario
                 String perfil = rs.getString(6);
                 //System.out.println(perfil);
-                //A estrutura abaixo faz o tratamento do perfil do usuário
+
                 if (perfil.equals("admin")) {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
@@ -206,7 +224,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
-       //Evento para chamar metodo apertando enter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             logar();
         }
