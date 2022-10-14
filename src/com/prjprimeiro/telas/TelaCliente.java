@@ -1,3 +1,26 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2022 Alexph7.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.prjprimeiro.telas;
 
 import java.sql.*;
@@ -9,6 +32,12 @@ import net.proteanit.sql.DbUtils;
 
 public class TelaCliente extends javax.swing.JInternalFrame {
 
+    /**
+     * Classe responsavel Gerenciamento de Clientes
+     *
+     * @author Alexph7
+     * @version 1.1
+     */
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -21,6 +50,12 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
+    /**
+     * Método responsavel por verificação de duplicação de usuário com mesmo
+     * nome e endereço
+     *
+     * @return true ou false
+     */
     private boolean cli_duplicado() {
         String sql = "select * from tbclientes where nomecli =?";
 
@@ -30,7 +65,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
             rs = pst.executeQuery();
             if (rs.next()) {
-                String nomebd = rs.getString(2);//receber o resultSet do Banco
+                String nomebd = rs.getString(2);
                 String enderecobd = rs.getString(3);
                 if (nomebd.equalsIgnoreCase(txtCliNome.getText())
                         && enderecobd.equalsIgnoreCase(txtCliEnderec.getText())) {
@@ -43,6 +78,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         return false;
     }
 
+    /**
+     * Método Responsavel Por Limpar Campos Automaticamente.
+     */
     private void limpar_campos() {
         txtCliId.setText(null);
         txtCliPesquisa.setText(null);
@@ -54,6 +92,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
     }
 
+    /**
+     * Método Responsavel Por Adicionar Novo Cliente.
+     */
     private void adicionar() {
 
         String sql = "insert into tbclientes (nomecli, enderecocli, numerocli, fonecli) values (?,?,?,?)";
@@ -90,7 +131,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
     }
 
-//Metodo para pesquisar clientes com filtro.
+    /**
+     * Metodo para pesquisar clientes no Banco de Dados com Filtragem.
+     */
+
     private void pesquisar_cliente() {
         String sql = "select idcli as id, nomecli as Nome, enderecocli as Endereço, numerocli as Numero, fonecli as Fone from tbclientes where nomecli like ?";
         try {
@@ -108,7 +152,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     }
 
-    //Método para setar conteúdo na tabela
+    /**
+     * Método para setar conteúdo na tabela.
+     */
+    
     public void setar_campos() {
         try {
             int setar = tblClientes.getSelectedRow();
@@ -124,6 +171,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método Para Alterar Dados de Cliente.
+     */
+    
     public void alterar_cliente() {
         String sql = "update tbclientes set nomecli=?, enderecocli=?, numerocli=?, fonecli=?where idcli=?";
         try {
@@ -157,6 +208,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método Para Deletar Cliente. 
+     */
+    
     public void deletar() {
         String sql = "delete from tbclientes where idcli = ?";
         try {
