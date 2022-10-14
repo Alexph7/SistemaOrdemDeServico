@@ -7,6 +7,7 @@ package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -228,8 +229,11 @@ public class TelaOs extends javax.swing.JInternalFrame {
         if (confirma == 0) {
             //imprimindo relatorio com framework jasperReport
             try {
+                //Usando HashMap para criar um filtro
+                HashMap filtro1 = new HashMap();
+                filtro1.put("os", Integer.parseInt(txtOsNum.getText()));//"os" é o nome do parametro utilizado no ireport
                 //Usando a classe jasperPrint para preparar a impressão
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/O.S.jasper", null, conexao);
+                JasperPrint print = JasperFillManager.fillReport("C:/Reports/O.S.jasper", filtro1, conexao);
                 //Linha abaixo exibe o relatorio através do jasperView
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {
