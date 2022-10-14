@@ -6,6 +6,7 @@
 package com.prjprimeiro.telas;
 
 import com.prjprimeiro.dal.ModuloConexao;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.DateFormat;
 import java.util.Date;
@@ -66,6 +67,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
             }
         });
 
@@ -292,6 +298,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_menRelServActionPerformed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+       if (evt.getKeyCode() == KeyEvent.VK_ALT) {
+            menCadastro.doClick();
+        }
+    }//GEN-LAST:event_formKeyReleased
 
     /**
      * @param args the command line arguments
