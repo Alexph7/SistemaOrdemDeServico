@@ -1,22 +1,47 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2022 ph757.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.prjprimeiro.telas;
 
 import java.sql.*;
 import com.prjprimeiro.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Alexph7
+ */
 public class TelaUsuario extends javax.swing.JInternalFrame {
 
-    //Usando a variavel de conexão do pacote prjprimeiro.Dal
     Connection conexao = null;
-    
-    //Criando variaveis especiais para conexão com o banco de dados.
-    //PreparedStatment e ResultSet são frameworks do pacote java.sql
-    //e servem para preparar e executar as instruções sql
+
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    /**
+     * Método Para Limpar Os Campos.
+     */
     private void limparCampos() {
-        //As Linhas abaixo limpam os campos
         txtUsuId.setText(null);
         txtUsuNome.setText(null);
         txtUsuFone.setText(null);
@@ -33,7 +58,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-    //Método para Consultar Usuarios
+    /**
+     * Método para Consultar Usuarios Do Sistema.
+     */
     private void consultar() {
         String sql = "select * from tbusuarios where iduser=?";
         try {
@@ -56,10 +83,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    //Métodos para adicionar usuários
+    /**
+     * Método para Adicionar Usuários.
+     */
     private void adicionar() {
         String sql = "Insert into tbusuarios(iduser,usuario,fone,login,senha,perfil) values(?,?,?,?,?,?)";
-        
+
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuId.getText());
@@ -68,29 +97,27 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(4, txtUsuLogin.getText());
             pst.setString(5, txtUsuSenha.getText());
             pst.setString(6, CboUsuPerfil.getSelectedItem().toString());
-            //validação dos campos obrigatorios
             if (txtUsuId.getText().isEmpty() || txtUsuNome.getText().isEmpty() || txtUsuLogin.getText().isEmpty() || txtUsuSenha.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else if (CboUsuPerfil.getSelectedItem().equals("Selecione")) {
                 JOptionPane.showMessageDialog(null, "Selecione um Perfil");
             } else {
-                //A linha Abaixo atualiza a tabela com os dados do formulario
-                int adicionado = pst.executeUpdate(); //este comando é usado tanto para inserir ou alterar dados na tabela
-                
-//A Linha Abaixo confirma a inserção dos dados                
+                int adicionado = pst.executeUpdate();
+
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário Adicionado Com Sucesso!");
                     limparCampos();
                 }
             }
         } catch (SQLException ex) {
-        
+
             JOptionPane.showMessageDialog(null, "Usuário já Cadastrado");
-            //System.out.println(e);
         }
     }
 
-    //Criando metodo Alterar dados do usuário.
+    /**
+     * Método Alterar dados do usuário.
+     */
     private void alterar() {
         String sql = "update tbusuarios set usuario=?, fone=?, login=?, senha=?, perfil=? where iduser=?";
         try {
@@ -122,7 +149,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    //Metodo Responsavel pela remoção de usuarios
+    /**
+     * Método Responsavel pela remoção de usuarios
+     */
     private void remover() {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem Certeza que Deseja Remover Usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
@@ -384,7 +413,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCreateActionPerformed
-       adicionar();
+        adicionar();
     }//GEN-LAST:event_btnUsuCreateActionPerformed
 
     private void btnUsuReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuReadActionPerformed
