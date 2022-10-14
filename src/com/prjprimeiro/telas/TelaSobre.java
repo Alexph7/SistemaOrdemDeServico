@@ -28,7 +28,8 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author ph757
+ * Classe Para Exibir Informações Sore o Projeto.
+ * @author Alexph7
  */
 public class TelaSobre extends javax.swing.JFrame {
 
