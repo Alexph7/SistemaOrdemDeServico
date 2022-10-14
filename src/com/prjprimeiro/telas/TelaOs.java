@@ -1,8 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2022 ph757.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package com.prjprimeiro.telas;
 
 import java.sql.*;
@@ -16,8 +35,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- *
- * @author ph757
+ * Classe Responsavel Por Gerenciamento de Ordens De Serviços.
+ * @author Alexph7
  */
 public class TelaOs extends javax.swing.JInternalFrame {
 
@@ -37,6 +56,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         tipo = "orçamento";
     }
 
+    /**
+     * Metodo Para Pequisar Cliente No Banco de Dados e Exibir Na Tabela.
+     */
     private void pesquisar_cliente() {
         try {
             pst = conexao.prepareStatement("select idcli as Id, nomecli as Nome, fonecli as Fone from tbclientes where nomecli like ?");
@@ -48,17 +70,23 @@ public class TelaOs extends javax.swing.JInternalFrame {
         }
     }
 
-    private void setar_campos() {
+    /**
+     * Método Para Setar Id de Cliente No Campo Id
+     */
+    private void setar_Id() {
         try {
             int setar = tblOs.getSelectedRow();
             txtCliId.setText(tblOs.getModel().getValueAt(setar, 0).toString());
-            //lblNome.setText("".concat("Nome ")+tblOs.getModel().getValueAt(setar, 1).toString()); setar nome em lbl
+            //lblNome.setText("".concat("Nome ")+tblOs.getModel().getValueAt(setar, 1).toString()); setar nome em lbl concatenado
 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Campo Vazio");
         }
     }
 
+    /**
+     * método Para Limpar Campos
+     */
     private void limpar_campos() {
         txtOsData.setText(null);
         txtOsNum.setText(null);
@@ -77,7 +105,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         btnOsDelete.setEnabled(false);
     }
 
-    // Método para cadastrar uma Os
+    /**
+     * Método para cadastrar uma Os no banco de dados deixando preparado para impressão.
+     */
     private void emitir_os() {
         try {
             pst = conexao.prepareStatement("insert into tbos (tipo, situacao, equipamento, defeito, serviço, tecnico, valor, idcli) values (?,?,?,?,?,?,?,?)");
@@ -87,7 +117,6 @@ public class TelaOs extends javax.swing.JInternalFrame {
             pst.setString(4, txtOsDefeito.getText());
             pst.setString(5, txtOsServico.getText());
             pst.setString(6, txtOsTecnico.getText());
-            //troca um caracter por outro, nesse caso o valor aceitará a virgula no lugar ponto
             pst.setString(7, txtOsValor.getText().replace(",", "."));
             pst.setString(8, txtCliId.getText());
 
@@ -101,7 +130,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 if (status > 0) {
                     JOptionPane.showMessageDialog(null, "O.S Emitida Com Sucesso");
                     //recuperar numero da os para ter a impressao passando o numero da os
-                    recuperarOs();
+                    recuperarNumOs();
                     btnOsCreate.setEnabled(false);
                     btnOsRead.setEnabled(false);
                     btnOsImprimir.setEnabled(true);
@@ -112,6 +141,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método para Consultar Ordem de serviço.
+     */
     private void consultar_os() {
         String num_os = JOptionPane.showInputDialog("Digite o Numero da O.s");
         if (num_os.isEmpty()) {
@@ -154,12 +186,14 @@ public class TelaOs extends javax.swing.JInternalFrame {
             } catch (SQLSyntaxErrorException e) {
                 JOptionPane.showMessageDialog(null, "Dados inválidos");
             } catch (SQLException e2) {
-                //System.out.println(e2);                
                 JOptionPane.showMessageDialog(null, e2);
             }
         }
     }
 
+    /**
+     * Método para Alterar Dados em uma Ordem de Serviço.
+     */
     private void alterar_os() {
         try {
             pst = conexao.prepareStatement("update tbos set tipo=?, situacao=?, defeito=?, serviço=?, tecnico=?, valor=? where os=?");
@@ -201,6 +235,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método para Exluir uma Ordem de Serviço
+     */
     private void excluir_os() {
         int confirm = JOptionPane.showConfirmDialog(null, "Tem Certeza que deseja excluir Os?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirm == 0) {
@@ -225,6 +262,9 @@ public class TelaOs extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Método para imprimir uma Ordem de Serviço.
+     */
     private void imprimir_os() {
         //Gerando um relatório de clientes
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão desta O.S?", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -244,7 +284,10 @@ public class TelaOs extends javax.swing.JInternalFrame {
         }
     }
 
-    private void recuperarOs() {
+    /**
+     * Método Para Recuperar número de Ultima Ordem de Serviço Cadastrado Para Preencher Parametro necessário Para Imprimir.
+     */
+    private void recuperarNumOs() {
         try {
             pst = conexao.prepareStatement("select max(os) from tbos");
             rs = pst.executeQuery();
@@ -711,7 +754,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCliPesquisarKeyReleased
 
     private void tblOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOsMouseClicked
-        setar_campos();
+        setar_Id();
     }//GEN-LAST:event_tblOsMouseClicked
 
     private void rbtOsOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOsOrcamentoActionPerformed
