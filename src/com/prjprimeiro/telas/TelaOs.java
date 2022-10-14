@@ -100,6 +100,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 int status = pst.executeUpdate();
                 if (status > 0) {
                     JOptionPane.showMessageDialog(null, "O.S Emitida Com Sucesso");
+                    //recuperar numero da os para ter a impressao passando o numero da os
+                    recuperarOs();
                     btnOsCreate.setEnabled(false);
                     btnOsRead.setEnabled(false);
                     btnOsImprimir.setEnabled(true);
@@ -222,8 +224,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
             }
         }
     }
-    
-    private void imprimir_os(){
+
+    private void imprimir_os() {
         //Gerando um relatório de clientes
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão desta O.S?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == 0) {
@@ -239,6 +241,18 @@ public class TelaOs extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
+        }
+    }
+
+    private void recuperarOs() {
+        try {
+            pst = conexao.prepareStatement("select max(os) from tbos");
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                txtOsNum.setText(rs.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
