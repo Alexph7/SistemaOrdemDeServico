@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.prjprimeiro.telas;
 
 import java.sql.*;
@@ -32,9 +31,9 @@ import javax.swing.JOptionPane;
 
 /**
  * Classe Responsavel por Login
+ *
  * @author Alexph7
  */
-
 public class TelaLogin extends javax.swing.JFrame {
 
     Connection conexao = null;
@@ -42,9 +41,9 @@ public class TelaLogin extends javax.swing.JFrame {
     ResultSet rs = null;
 
     /**
-     * Método Paara verficar Se Dados de Entrada Estão No Banco de Dados, Se Sim Faz Liberação Do Sistema.
+     * Método Paara verificar Se Dados de Entrada Estão No Banco de Dados, Se
+     * Sim Faz Liberação Do Sistema.
      */
-    
     private void logar() {
         String sql = "select * from tbusuarios where login =? and senha =?";
         try {
@@ -208,8 +207,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //A linha abaixo serve de apoio para status da conexão.
-        //System.out.println(conexao);
         if (conexao != null) {
             ImageIcon icon = new ImageIcon("src/com/prjprimeiro/icones/22.png");
             icon.setImage(icon.getImage().getScaledInstance(lblStatus.getWidth(), lblStatus.getHeight(), 1));
@@ -231,7 +228,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        txtSenha.requestFocus();
+            txtSenha.requestFocus();
         }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
